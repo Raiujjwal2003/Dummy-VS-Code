@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sasta vs code</title>
+  <link rel="stylesheet" href="../stylesheets/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="main">
+    <div id="sidenav">
+      <div class="notif">
+       <a href="/">  <h5>sasta vs code</h5> </a>
+        <div id="icons">
+          <i id="createfile" class="ri-file-text-line"></i>
+          <i id="createfolder" class="ri-folder-add-line"></i>
+          <a id="refress"  href="/ref"><i class="ri-refresh-line"></i> </a>
+        </div>
+      </div>
+
+
+   <div id="filecreate">
+
+     <form action="/filecreate">
+       <input name="filename" type="text" placeholder="create file">
+     </form>
+   </div>
+
+   <div id="foldercreatebtn">
+
+     <form action="/foldercreatebtn">
+       <input name="foldername" type="text" placeholder="create folder">
+     </form>
+   </div>
+
+
+      <div id="files">
+        <% data.forEach(function(elem){ %>
+          <div class="file">
+            <div class="name">
+              <% if(elem.isFolder){ %>
+                <i class="ri-folder-fill"></i>
+                <%= elem.name %>
+
+                
+                <%} else{ %>
+                  <i  class="ri-file-text-line"></i>
+                  <a href="/file/<%= elem.name %>">  <%= elem.name %></a>
+               <% } %>
+
+            </div>
+            <a href="/delete/<%= elem.name %>"  <i class="ri-delete-bin-line"></i></a>
+          </div>
+       <% }) %>
+    
+
+      </div>
+    </div>
+    <div id="code">
+      <% if(filename.length>0){ %>
+        <div id="codenav">
+          <div class="file">
+            <div class="name">
+              <i class="ri-file-text-line"></i>
+            <%= filename %>
+            </div>
+           <a href="/"> <i id="cancle" class="ri-close-line"></i></a>
+          </div>
+        </div>
+        <form action="/save/<%= filename %> "  method="post">
+          <textarea name="filedata"> <%= filedata %> </textarea>
+          <input id="savebtn" type="submit"  value="save">
+        </form>
+     <%  } else{ %>
+
+      <small > no files open</small>
+     <% } %>
+     
+    </div>
+  </div>
+
+
+  <script>
+
+     function filebtn(){
+      var flag=0;
+   
+      document.querySelector("#createfile").addEventListener("click",function(){
+        if(flag===0){
+          document.querySelector("#filecreate").style.display="block";
+          flag=1;
+        }
+        else{
+          document.querySelector("#filecreate").style.display="none";
+          flag=0;
+        }
+      })
+     }
+     filebtn();
+
+     function folderbtn(){
+      var flag=0;
+   
+      document.querySelector("#createfolder").addEventListener("click",function(){
+        if(flag===0){
+          document.querySelector("#foldercreatebtn").style.display="block";
+          flag=1;
+        }
+        else{
+          document.querySelector("#foldercreatebtn").style.display="none";
+          flag=0;
+        }
+      })
+     }
+     folderbtn(); 
+  </script>
+
+</body>
+
+</html>
